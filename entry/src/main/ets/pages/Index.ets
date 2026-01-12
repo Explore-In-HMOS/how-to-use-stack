@@ -1,5 +1,3 @@
-import { router } from '@kit.ArkUI';
-
 class MyCurve {
   public title: string;
   public curve: Curve;
@@ -19,35 +17,27 @@ const myCurves: MyCurve[] = [
   new MyCurve(' Ease', Curve.Ease, '#ff9416', 120),
   new MyCurve(' EaseIn', Curve.EaseIn, '#fde912', 90),
   new MyCurve(' EaseOut', Curve.EaseOut, '#44e643', 54),
-  new MyCurve(' EaseInOut', Curve.EaseInOut, '#3caaff', 18),
+  new MyCurve(' EaseInOut', Curve.EaseInOut, '#3caaff', 18)
 ]
 
 @Entry
 @Component
 struct Index {
-  @State dRotate: number = 0;
-  private settings: RenderingContextSettings = new RenderingContextSettings(true)
-  private context: CanvasRenderingContext2D = new CanvasRenderingContext2D(this.settings)
-
-  @State bmi_value: number = 28;
+  dRotate: number = 0;
+  bmiValue: number = 28;
 
   aboutToAppear() {
-    const params = router.getParams() as Record<string, string>;
-    if (params && params.bmi) {
-      this.bmi_value = parseFloat(params.bmi);
-    }
-
     setTimeout(() => {
       if (!this.dRotate) {
-        if (this.bmi_value < 18.5) {
+        if (this.bmiValue < 18.5) {
           this.dRotate = 18;
-        } else if (this.bmi_value < 24.9) {
+        } else if (this.bmiValue < 24.9) {
           this.dRotate = 54;
-        } else if (this.bmi_value < 29.9) {
+        } else if (this.bmiValue < 29.9) {
           this.dRotate = 90;
-        } else if (this.bmi_value < 39.9) {
+        } else if (this.bmiValue < 39.9) {
           this.dRotate = 120;
-        } else if (this.bmi_value >= 40.0) {
+        } else if (this.bmiValue >= 40.0) {
           this.dRotate = 162;
         }
       }
@@ -55,57 +45,55 @@ struct Index {
   }
 
   build() {
-    Column() {
-      Stack() {
-        Image($r('app.media.table'))
-          .width('100%')
-          .height('100%')
-          .padding({
-            bottom:110
-          })
-        ForEach(myCurves, (item: MyCurve) => {
-          Column() {
-            Row()
-              .width(10)
-              .height(10)
-              .borderRadius(15)
-              .backgroundColor(item.color)
-              .clip(true)
-          }
-          .width('50%')
-          .height('55%')
-          .rotate({ angle: this.dRotate - 90 })
-          .animation({
-            duration: 2000,
-            iterations: -1,
-            curve: item.curve,
-            delay: 100
-          })
-        }, (item: string, index: number) => item)
-        Column(){
-          Text('BMI: ' + this.bmi_value)
-            .fontSize(12)
-            .fontWeight(FontWeight.Bold)
-            .fontColor($r('app.color.blue_color'))
-            .height('14%')
-          Text('Your journey to strength starts here—small steps can lead to powerful transformations!')
-            .fontStyle(FontStyle.Italic)
-            .fontSize(10)
-            .fontWeight(FontWeight.Bold)
-            .fontColor(Color.Red)
-            .height('14%')
-            .width('80%')
-            .padding({
-              top:10
-            })
-        }
+    Stack() {
+      Image($r('app.media.table'))
+        .width('100%')
+        .height('100%')
         .padding({
-          top:20
+          bottom: 110
         })
+      ForEach(myCurves, (item: MyCurve) => {
+        Column() {
+          Row()
+            .width(10)
+            .height(10)
+            .borderRadius(15)
+            .backgroundColor(item.color)
+            .clip(true)
+        }
+        .width('50%')
+        .height('55%')
+        .rotate({ angle: this.dRotate - 90 })
+        .animation({
+          duration: 2000,
+          iterations: -1,
+          curve: item.curve,
+          delay: 100
+        })
+      }, (item: string) => item)
+      Column() {
+        Text(`BMI: ${this.bmiValue}`)
+          .fontSize(12)
+          .fontWeight(FontWeight.Bold)
+          .fontColor($r('app.color.blue_color'))
+          .height('14%')
+        Text('Your journey to strength starts here—small steps can lead to powerful transformations!')
+          .fontStyle(FontStyle.Italic)
+          .fontSize(10)
+          .fontWeight(FontWeight.Bold)
+          .fontColor(Color.Red)
+          .height('14%')
+          .width('80%')
+          .padding({
+            top: 10
+          })
       }
-      .width('100%')
-      .height('100%')
-      .backgroundColor(Color.White)
+      .padding({
+        top: 20
+      })
     }
+    .width('100%')
+    .height('100%')
+    .backgroundColor(Color.White)
   }
 }

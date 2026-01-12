@@ -6,7 +6,9 @@ Stack Usage App allows users to quickly calculate their Body Mass Index by enter
 
 # Preview
 
-<img src="./images/Animation1.gif" width="25%"/>
+<div>
+<img src="./screenshots/Animation1.gif" width="25%"/>
+</div>
 
 # Use Cases
 
@@ -25,7 +27,7 @@ Stack Usage App allows users to quickly calculate their Body Mass Index by enter
 - **Tools**: DevEco Studio Vers 5.1.0.842
 - **Libraries**: @kit.ArkUI
 
-# Project Directory
+# Directory Structure
    ```
    entry/src/main/ets/
    |---pages

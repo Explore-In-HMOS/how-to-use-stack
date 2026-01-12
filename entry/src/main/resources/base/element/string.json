@@ -11,10 +11,6 @@
     {
       "name": "EntryAbility_label",
       "value": "label"
-    },
-    {
-      "name": "header",
-      "value": "BMI Calculator"
     }
   ]
 }
